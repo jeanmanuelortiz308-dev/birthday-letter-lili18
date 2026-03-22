@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💖 Feliz Cumpleaños Lili 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ffe6f0 50%, #fff0f5 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Collage de corazones con fotos */
+        .heart-collage {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-photo {
+            position: absolute;
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.2);
+            opacity: 0.12;
+            background-size: cover;
+            background-position: center;
+            animation: float 8s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px 40px;
+            max-width: 700px;
+            box-shadow: 0 20px 60px rgba(255, 105, 180, 0.3);
+            animation: slideIn 0.8s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            font-size: 48px;
+            color: #ff1493;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .subtitle {
+            font-size: 24px;
+            color: #ff69b4;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .main-message {
+            color: #333;
+            line-height: 1.8;
+            font-size: 16px;
+            margin-bottom: 40px;
+            text-align: justify;
+            border-left: 4px solid #ff1493;
+            padding-left: 20px;
+            animation: fadeIn 1.5s ease-out;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .main-message::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .main-message::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .main-message::-webkit-scrollbar-thumb {
+            background: #ff69b4;
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .poem-button-container {
+            position: relative;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .poem-button {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+        }
+
+        .poem-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 20, 147, 0.5);
+        }
+
+        .poem-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Modal para el poema */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #fff0f5, #ffe6f0);
+            margin: 5% auto;
+            padding: 40px;
+            border: 2px solid #ff1493;
+            border-radius: 20px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideDown 0.5s ease-out;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: #ff69b4;
+            border-radius: 10px;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close {
+            color: #ff1493;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: sticky;
+            top: 0;
+        }
+
+        .close:hover {
+            transform: rotate(90deg);
+        }
+
+        .modal-title {
+            color: #ff1493;
+            font-size: 28px;
+            margin: 20px 0;
+            text-align: center;
+            clear: both;
+        }
+
+        .modal-text {
+            color: #333;
+            line-height: 1.8;
+            font-size: 16px;
+            text-align: center;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .buttons-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 40px;
+        }
+
+        .emotion-button {
+            padding: 20px;
+            border: 2px solid #ff69b4;
+            background: linear-gradient(135deg, #fff0f5, #ffe6f0);
+            border-radius: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #ff1493;
+            box-shadow: 0 5px 15px rgba(255, 105, 180, 0.2);
+        }
+
+        .emotion-button:hover {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        .emotion-button:active {
+            transform: translateY(-2px);
+        }
+
+        audio {
+            display: none;
+        }
+
+        /* Estilos responsivos */
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .title {
+                font-size: 36px;
+            }
+
+            .subtitle {
+                font-size: 18px;
+            }
+
+            .main-message {
+                font-size: 14px;
+            }
+
+            .buttons-container {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                width: 90%;
+                padding: 30px 20px;
+            }
+
+            .heart-photo {
+                opacity: 0.08;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Collage de fotos de Lili como corazones flotantes -->
+    <div class="heart-collage" id="heartCollage"></div>
+
+    <div class="container">
+        <h1 class="title">💖 ¡Feliz Cumpleaños Lili! 💖</h1>
+        <p class="subtitle">Este día es tuyo... y también mío, porque eres lo más hermoso de mi vida ✨</p>
+
+        <div class="main-message">
+Hoy es tu día, y aunque el calendario marque un año más de tu vida, para mí es la celebración de la creación más perfecta que Dios puso en mi camino. Te escribo esto desde lo más profundo de mi ser, no solo para desearte un feliz cumpleaños, sino para recordarte quién soy yo en tu vida y quién eres tú en la mía.
+
+Sé que las cosas han cambiado, pero hay verdades que el tiempo no puede borrar. Para mí, sigues siendo el amor de mi vida. No importa dónde estés o qué pase, yo sigo aquí, siendo ese refugio seguro al que puedes volver cuando el mundo se ponga difícil o cuando la gente no te entienda. Mi paciencia contigo no tiene límites porque entiendo tu valor; para mí, siempre valdrá la pena esperar por ti.
+
+En tus manos aún viven los testimonios de lo que somos: esos dos anillos. El de promesa y el que le siguió no son simples joyas; son pactos de que, pase lo que pase, mi lealtad te pertenece. Cada vez que los veas, recuerda que hay alguien que no se rinde, alguien que te ve como su prioridad absoluta y que te sigue eligiendo por encima de todo.
+
+Disfruta mucho de tu día, Lili. Ríe, brilla y siéntete la mujer más especial, porque lo eres. Pero nunca olvides que, mientras el mundo gira, yo te espero aquí, cuidando el espacio que siempre será tuyo. Porque eres mía en esencia y yo soy tuyo en alma.
+
+Feliz cumpleaños, mi creación perfecta. ✨
+        </div>
+
+        <div class="poem-button-container">
+            <button class="poem-button" onclick="openPoemModal()">Este poema es para ti 💍</button>
+        </div>
+
+        <!-- Modal para el poema -->
+        <div id="poemModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closePoemModal()">&times;</span>
+                <h2 class="modal-title">Nuestro Destino 💍✨</h2>
+                <p class="modal-text">Los anillos que hoy adornan tu mano,
+testigos fieles de lo que hemos sido,
+tendrán un destino más noble y cercano
+al fuego sagrado de lo nunca visto.
+
+Un día, el metal se hará luz pura,
+con destellos que el tiempo no podrá opacar;
+serán el reflejo de esta aventura,
+vestidos de gala para volvernos a amar.
+
+Cambiamos el brillo por uno más fino,
+un lujo que envuelva nuestra verdad,
+sellando de nuevo nuestro destino
+con piezas que duren la eternidad.</p>
+            </div>
+        </div>
+
+        <div class="buttons-container">
+            <button class="emotion-button" onclick="openEmotionModal('happiness')">Felicidad ✨</button>
+            <button class="emotion-button" onclick="openEmotionModal('sadness')">Tristeza 🌊</button>
+            <button class="emotion-button" onclick="openEmotionModal('anxiety')">Ansiedad y Miedo 🌪️</button>
+            <button class="emotion-button" onclick="openEmotionModal('patience')">Paciencia y Promesa 💍</button>
+        </div>
+    </div>
+
+    <!-- Modales para emociones -->
+    <div id="emotionModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEmotionModal()">&times;</span>
+            <h2 class="modal-title" id="emotionTitle"></h2>
+            <p class="modal-text" id="emotionText"></p>
+        </div>
+    </div>
+
+    <!-- Música de fondo -->
+    <audio id="bgMusic" loop>
+        <source src="https://music.youtube.com/watch?v=dQw4w9WgXcQ" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script>
+        // Mensajes de emociones
+        const emotions = {
+            happiness: {
+                title: 'Felicidad ✨',
+                text: '"Lili, en tu cumpleaños mi mayor deseo es que la alegría nunca te falte. Quiero que sepas que mi meta personal siempre será ser el motivo de tus sonrisas. No importa cuánto tiempo pase o las vueltas que dé la vida, yo voy a mover el cielo y la tierra para asegurarme de que seas feliz. Tu felicidad es la mía, y celebrarte hoy es celebrar la luz que traes a mi mundo. Te amo y siempre buscaré lo mejor para ti." 🫀'
+            },
+            sadness: {
+                title: 'Tristeza 🌊',
+                text: '"Cuando el mundo se sienta pesado y la tristeza toque a tu puerta, recuerda que aquí estoy yo. No tienes que cargar con nada sola; yo soy tu refugio y tu lugar seguro. Haría hasta lo imposible, lo que fuera necesario, con tal de borrar una lágrima de tu cara y devolverte la paz. Si te sientes mal, vuelve a mis brazos, porque mi único propósito en los días grises es recordarte lo valiosa que eres y no soltarte hasta que vuelvas a brillar." 🫀'
+            },
+            anxiety: {
+                title: 'Ansiedad y Miedo 🌪️',
+                text: '"Si el miedo te alcanza o la ansiedad te hace sentir que pierdes el control, cierra los ojos y recuerda que mi mano está sosteniendo la tuya. Yo soy quien calmará tus preocupaciones y quien espantará tus temores. No permitas que nada te angustie, porque mientras yo esté aquí, nada te va a pasar. Soy tu calma en medio de la tormenta y siempre estaré un paso adelante para protegerte de lo que te asuste. Confía en mí, yo te cuido." 🫀'
+            },
+            patience: {
+                title: 'Paciencia y Promesa 💍',
+                text: '"Esta carta es para hablarte de mi promesa y de mi espera. Tengo toda la paciencia del mundo porque sé que eres la creación perfecta de Dios y lo más sagrado que tengo. No te voy a dejar sola nunca; mis anillos en tus dedos son la prueba de que mi lealtad es eterna. Tenemos demasiado pendiente por vivir, Lili… sueños que cumplir y esa hijita que tanto imagino, con tus actitudes y tu cara hermosa. No me muevo de aquí, sigo firme esperándote para cumplir todo lo que nos falta." 🫀'
+            }
+        };
+
+        // Crear collage de corazones con fotos (usando data URLs locales o servicios de imagen)
+        const positions = [
+            { top: '5%', left: '5%', size: '100px', delay: '0s' },
+            { top: '10%', right: '8%', size: '120px', delay: '1s' },
+            { top: '50%', left: '10%', size: '90px', delay: '2s' },
+            { bottom: '15%', right: '12%', size: '110px', delay: '1.5s' },
+            { top: '25%', right: '5%', size: '95px', delay: '2.5s' },
+            { bottom: '30%', left: '5%', size: '105px', delay: '0.5s' },
+            { top: '70%', right: '20%', size: '85px', delay: '3s' },
+            { top: '60%', left: '20%', size: '115px', delay: '1.8s' }
+        ];
+
+        function createHeartCollage() {
+            const collage = document.getElementById('heartCollage');
+            
+            positions.forEach((pos, index) => {
+                const heart = document.createElement('div');
+                heart.className = 'heart-photo';
+                heart.style.width = pos.size;
+                heart.style.height = pos.size;
+                heart.style.animationDelay = pos.delay;
+                
+                // Agregar color de fondo como fallback
+                heart.style.backgroundColor = ['#ff69b4', '#ff1493', '#ff69b4', '#ff1493', '#ff69b4', '#ff1493', '#ff69b4', '#ff1493'][index];
+                
+                if (pos.top) heart.style.top = pos.top;
+                if (pos.left) heart.style.left = pos.left;
+                if (pos.right) heart.style.right = pos.right;
+                if (pos.bottom) heart.style.bottom = pos.bottom;
+                
+                collage.appendChild(heart);
+            });
+        }
+
+        // Abrir modal de poema
+        function openPoemModal() {
+            document.getElementById('poemModal').style.display = 'block';
+            playMusic();
+        }
+
+        // Cerrar modal de poema
+        function closePoemModal() {
+            document.getElementById('poemModal').style.display = 'none';
+        }
+
+        // Abrir modal de emoción
+        function openEmotionModal(emotion) {
+            const emotionData = emotions[emotion];
+            document.getElementById('emotionTitle').textContent = emotionData.title;
+            document.getElementById('emotionText').textContent = emotionData.text;
+            document.getElementById('emotionModal').style.display = 'block';
+            playMusic();
+        }
+
+        // Cerrar modal de emoción
+        function closeEmotionModal() {
+            document.getElementById('emotionModal').style.display = 'none';
+        }
+
+        // Reproducir música de fondo
+        function playMusic() {
+            const audio = document.getElementById('bgMusic');
+            audio.volume = 0.3;
+            audio.play().catch(function(error) {
+                console.log('La música no pudo reproducirse automáticamente.');
+            });
+        }
+
+        // Inicializar
+        window.addEventListener('load', function() {
+            createHeartCollage();
+            playMusic();
+        });
+
+        // Cerrar modales al hacer click fuera
+        window.onclick = function(event) {
+            const p*
+      
